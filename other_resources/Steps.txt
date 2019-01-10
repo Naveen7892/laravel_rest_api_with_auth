@@ -70,7 +70,7 @@ password: root
     rerun the command with :fresh option
 
 >> php artisan migrate:fresh
-(can also use --steps option if needed to rollback separate batch)
+(can also use --steps option if needed to rollback separate batch (check in migrations table))
 
 - define seed data for the Model Class created App\Article
 >> php artisan make:seeder ArticlesTableSeeder
@@ -82,3 +82,13 @@ password: root
 
 - to run all DB seed from DatabaseSeeded.php
 >> php artisan db:seed
+
+- Added Routing and Controllers with Implicit route model binding
+
+- Updated Exception handler to return JSON
+
+- Adding column in existing table using migration
+>> php artisan make:migration --table=users adds_api_token_to_users_table
+>> php artisan migrate
+
+- Adding Simple Authentication for existing Users table
