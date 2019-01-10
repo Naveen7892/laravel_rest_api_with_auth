@@ -92,3 +92,21 @@ password: root
 >> php artisan migrate
 
 - Adding Simple Authentication for existing Users table
+- editing Auth\RegisterController, routes\api.php and App\User.php
+
+>> curl -X POST http://localhost:8000/api/register -H "Accept: application/json" -H "Content-Type: application/json" -d '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
+(Prob)
+    Class App\\Http\\Controllers\\Auth\\Request does not exist
+    ...
+
+(Sol)
+    Add - use Illuminate\Http\Request; - in the RegisterController.
+
+>> curl ...
+(Prob)
+    Class 'App\\Http\\Controllers\\Auth\\Registered' not found
+    ...
+
+(Sol)
+    Add - use Illuminate\Auth\Events\Registered; - in th RegisterController.
+
