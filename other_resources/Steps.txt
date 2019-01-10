@@ -1,12 +1,74 @@
+==================================================
+Errors we had when tried with Laravel 7.2
+
+Installation:
+https://windows.php.net/download#php-7.3
+
+PHP Warning: Module 'openssl' already loaded in Unknown on line 0
+
+https://stackoverflow.com/questions/35249620/the-openssl-extension-is-required-for-ssl-tls-protection
+https://forum.directadmin.com/archive/index.php/t-7605.html
+
+==================================================
+Tutorial site:
+https://www.toptal.com/laravel/restful-laravel-api-tutorial
+
+Source code of tutorial:
+https://github.com/andrecastelo/example-api
+
+
+==================================================
 >> composer create-project --prefer-dist laravel/laravel rest_api_with_auth 5.5
 
 >> cd rest_api_with_auth
 
 >> php artisan serve
 
+- Create repo
 >> git init
 >> git config --local user.email "metanaveen@outlook.com"
 >> git config --local user.email "Naveen Kumar"
 >> git status
 >> git add .
 >> git commit -m "Initial Commit"
+
+- Create MySQL DB and update the credentials in .env file
+>> mysql -u root -p
+password: root
+>> create database rest_api_with_auth;
+>> use rest_api_with_auth;
+
+>> php artisan make:model Article -m
+
+>> php artisan migrate
+(prob)
+    [Illuminate\Database\QueryException]
+    SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes (SQL: alter table `users` add unique `users_email_unique`(`email`))
+
+    [PDOException]
+    SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes
+
+(Sol)
+    Edit AppServiceProvider.php with,
+
+        use Illuminate\Support\Facades\Schema;
+        public function boot()
+        {
+            Schema::defaultStringLength(191);
+        }
+
+>> php artisan migrate
+(prob)
+    [Illuminate\Database\QueryException]
+    SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'users' already exists (SQL: create table `users` (`id` int unsigned not null auto_increment primary
+    key, `name` varchar(191) not null, `email` varchar(191) not null, `password` varchar(191) not null, `remember_token` varchar(100) null, `created_at` timestamp nul
+    l, `updated_at` timestamp null) default character set utf8mb4 collate utf8mb4_unicode_ci)
+
+    [PDOException]
+    SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'users' already exists
+(sol)
+    rerun the command with :fresh option
+
+>> php artisan migrate:fresh
+(can also use --steps option if needed to rollback separate batch)
+
