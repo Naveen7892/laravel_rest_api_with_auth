@@ -72,3 +72,13 @@ password: root
 >> php artisan migrate:fresh
 (can also use --steps option if needed to rollback separate batch)
 
+- define seed data for the Model Class created App\Article
+>> php artisan make:seeder ArticlesTableSeeder
+
+- run DB seed without using factory
+>> php artisan db:seed --class=ArticlesTableSeeder
+
+>> php artisan make:seeder UsersTableSeeder
+
+- to run all DB seed from DatabaseSeeded.php
+>> php artisan db:seed
