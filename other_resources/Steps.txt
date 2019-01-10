@@ -1,0 +1,12 @@
+>> composer create-project --prefer-dist laravel/laravel rest_api_with_auth 5.5
+
+>> cd rest_api_with_auth
+
+>> php artisan serve
+
+>> git init
+>> git config --local user.email "metanaveen@outlook.com"
+>> git config --local user.email "Naveen Kumar"
+>> git status
+>> git add .
+>> git commit -m "Initial Commit"
